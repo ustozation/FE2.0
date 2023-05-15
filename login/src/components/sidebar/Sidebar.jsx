@@ -24,7 +24,7 @@ export const Sidebar = () => {
             </span>
           </div>
           <nav className='mt-10 px-6 '>
-            <NavLink to='/' className={changeActiveClazz} href='#'>
+            <NavLink to='/dashboard' className={changeActiveClazz} href='#'>
               {/*  */}
               <svg
                 width='20'
@@ -39,7 +39,11 @@ export const Sidebar = () => {
               <span className='mx-4 text-lg font-normal'>Homepage</span>
               <span className='flex-grow text-right'></span>
             </NavLink>
-            <NavLink to='/team' className={changeActiveClazz} href='#'>
+            <NavLink
+              to='/dashboard/team'
+              className={changeActiveClazz}
+              href='#'
+            >
               <svg
                 width='20'
                 height='20'
@@ -53,7 +57,11 @@ export const Sidebar = () => {
               <span className='mx-4 text-lg font-normal'>Team</span>
               <span className='flex-grow text-right'></span>
             </NavLink>
-            <NavLink to='/commerce' className={changeActiveClazz} href='#'>
+            <NavLink
+              to='/dashboard/commerce'
+              className={changeActiveClazz}
+              href='#'
+            >
               <svg
                 width='20'
                 height='20'
@@ -67,7 +75,11 @@ export const Sidebar = () => {
               <span className='mx-4 text-lg font-normal'>Commerce</span>
               <span className='flex-grow text-right'></span>
             </NavLink>
-            <NavLink to='/blog' className={changeActiveClazz} href='#'>
+            <NavLink
+              to='/dashboard/blog'
+              className={changeActiveClazz}
+              href='#'
+            >
               <svg
                 width='20'
                 height='20'

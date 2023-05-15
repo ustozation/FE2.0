@@ -1,4 +1,36 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import authService from '../../services/AuthService';
+
 export const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(false);
+  const navigate = useNavigate();
+
+  const onSubmit = e => {
+    e.preventDefault();
+    if (email && password) {
+      authService.login(email, password).then(data => {
+        if (data) {
+          navigate('/dashboard');
+          console.log('done');
+        } else {
+          setError(true);
+          setEmail('');
+          setPassword('');
+        }
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem('accessToken')) {
+      navigate('/dashboard');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className='w-100 h-[100vh] dark:bg-gray-700 flex items-center justify-center'>
       <div className='flex flex-col w-full max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10'>
@@ -6,7 +38,7 @@ export const Login = () => {
           Login To Your Account
         </div>
         <div className='mt-8'>
-          <form action='#' autoComplete='off'>
+          <form action='#' autoComplete='off' onSubmit={onSubmit}>
             <div className='flex flex-col mb-2'>
               <div className='flex relative '>
                 <span className='rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm'>
@@ -23,6 +55,10 @@ export const Login = () => {
                 <input
                   type='text'
                   id='sign-in-email'
+                  value={email}
+                  onChange={e => {
+                    setEmail(e.target.value);
+                  }}
                   className=' rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent'
                   placeholder='Your email'
                 />
@@ -44,6 +80,10 @@ export const Login = () => {
                 <input
                   type='password'
                   id='sign-in-email'
+                  value={password}
+                  onChange={e => {
+                    setPassword(e.target.value);
+                  }}
                   className=' rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent'
                   placeholder='Your password'
                 />
@@ -59,7 +99,10 @@ export const Login = () => {
                 </a>
               </div>
             </div>
-            <div className='flex w-full'>
+            <div className='flex flex-col w-full'>
+              <small className='text-center text-red-500 mb-3'>
+                {error ? "Email yoki parol noto'g'ri kiritildi" : ''}
+              </small>
               <button
                 type='submit'
                 className='py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg '

@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import authService from '../../services/AuthService';
+
 export const Header = () => {
   return (
     <div className='w-[100%]'>
@@ -30,6 +33,15 @@ export const Header = () => {
                   className='mx-auto object-cover rounded-full h-12 w-12 '
                 />
               </a>
+            </div>
+            <div className=' flex items-center'>
+              <Link
+                to='/auth-login'
+                onClick={() => authService.logout()}
+                className='mb-2 text-xl text-purple-600 font-light underline md:mb-0'
+              >
+                Log out
+              </Link>
             </div>
           </div>
         </div>
